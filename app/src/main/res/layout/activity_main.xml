@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="1">
+
+
+    <TableRow>
+
+        <TextView android:text="Fajr" />
+
+        <Spinner
+            android:id="@+id/spinner_fajr"
+            android:entries="@array/namaz_states"
+            android:prompt="@string/namaz_prompt" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="Zohar" />
+
+        <Spinner
+            android:id="@+id/spinner_zohar"
+            android:entries="@array/namaz_states"
+            android:prompt="@string/namaz_prompt" />
+
+    </TableRow>
+
+
+    <TableRow>
+
+        <TextView android:text="Asr" />
+
+        <Spinner
+            android:id="@+id/spinner_asr"
+            android:entries="@array/namaz_states"
+            android:prompt="@string/namaz_prompt" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="Magrib" />
+
+        <Spinner
+            android:id="@+id/spinner_magrib"
+            android:entries="@array/namaz_states"
+            android:prompt="@string/namaz_prompt" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="Isha" />
+
+        <Spinner
+            android:id="@+id/spinner_isha"
+            android:entries="@array/namaz_states"
+            android:prompt="@string/namaz_prompt" />
+
+    </TableRow>
+
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Save" />
+</TableLayout>
+
+
+

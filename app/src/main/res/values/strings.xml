@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NamaazCounter</string>
+
+    <string name="namaz_prompt">Choose between</string>
+
+    <string-array name="namaz_states">
+        <item>Baki hai</item>
+        <item>Ada Kiya</item>
+        <item>Qaza</item>
+    </string-array>
+</resources>
+
