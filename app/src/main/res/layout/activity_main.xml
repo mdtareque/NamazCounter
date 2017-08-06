@@ -2,89 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_marginBottom="12dp"
-    android:layout_marginTop="8dp"
-    android:orientation="vertical">
+    android:background="@drawable/m"
+    android:orientation="vertical"
+    android:scaleType="centerCrop">
 
-    <TextView
-        android:id="@+id/date_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:padding="12dp"
-        android:paddingBottom="2dp"
-        android:text="Date"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    <Button
+        style="@style/home_btn"
+        android:onClick="gotoNamaazActivity"
+        android:text="Update Todays" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:orientation="horizontal">
+    <Button
+        style="@style/home_btn"
+        android:text="Show Stats" />
 
-        <!-- https://stackoverflow.com/questions/2698817/linear-layout-and-weight-in-android?rq=1 -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="10"
-            android:orientation="vertical">
+    <Button
+        style="@style/home_btn"
+        android:text="About Us" />
 
-            <TextView
-                style="@style/salahName"
-                android:text="Fajr" />
+    <Button
+        style="@style/home_btn"
+        android:text="Contact Us" />
 
-            <TextView
-                style="@style/salahName"
-                android:text="Zohar" />
-
-            <TextView
-                style="@style/salahName"
-                android:text="Asr" />
-
-            <TextView
-                style="@style/salahName"
-                android:text="Magrib" />
-
-            <TextView
-                style="@style/salahName"
-                android:text="Isha" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="10"
-            android:orientation="vertical">
-
-            <Spinner
-                android:id="@+id/spinner_fajr"
-                style="@style/salahSpinner"
-                android:spinnerMode="dialog" />
-
-            <Spinner
-                android:id="@+id/spinner_zohar"
-                style="@style/salahSpinner"
-                android:ellipsize="marquee"
-                />
-
-            <Spinner
-                android:id="@+id/spinner_asr"
-                style="@style/salahSpinner" />
-
-            <Spinner
-                android:id="@+id/spinner_magrib"
-                style="@style/salahSpinner" />
-
-            <Spinner
-                android:id="@+id/spinner_isha"
-                style="@style/salahSpinner" />
-        </LinearLayout>
-
-    </LinearLayout>
+    <Button
+        style="@style/home_btn"
+        android:text="" />
 </LinearLayout>
 
 

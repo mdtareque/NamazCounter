@@ -3,6 +3,10 @@
 
     <string name="namaz_prompt">Choose between</string>
 
+    <string name="ada_kiya">Ada Kiya</string>
+    <string name="baki">Baki Hai</string>
+    <string name="qaza">Qaza</string>
+
     <string-array name="namaz_states">
         <item>Baki hai</item>
         <item>Ada Kiya</item>

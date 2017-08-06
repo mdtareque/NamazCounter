@@ -32,4 +32,22 @@
 
     </style>
 
+    <style name="home_btn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">20sp</item>
+        <!-- https://stackoverflow.com/questions/4954102/button-background-as-transparent-->
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <!--
+        <item name="android:textColor">@android:color/black</item>
+        -->
+
+
+    </style>
+
 </resources>
