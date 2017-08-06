@@ -28,13 +28,13 @@ public class Util {
     public static int getNamazStatusInInt(String s) {
         switch (s) {
             case ADA_KIYA:
-                return 0;
+                return NState.ADA_KIYA.getCode();
             case QAZA:
-                return 1;
+                return NState.QAZA.getCode();
             case BAKI_HAI:
-                return 2;
+                return NState.BAKI_HAI.getCode();
             default:
-                return 0;
+                return NState.BAKI_HAI.getCode();
         }
     }
 
