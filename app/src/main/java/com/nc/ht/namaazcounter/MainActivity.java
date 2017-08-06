@@ -6,7 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     SingleDayCount namazStatus;
@@ -21,6 +27,21 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new NamazDBHelper(this);
         namazStatus = dbHelper.populateTodaysAndGetObject();
 
+        TextView header = (TextView) findViewById(R.id.date_header);
+        int date = namazStatus.getDate();
+        DateFormat sourceFormat = new SimpleDateFormat("ddMMyyyy");
+        String dateAsString = date+"";
+        try {
+            // https://stackoverflow.com/questions/3386520/parse-date-from-string-in-this-format-dd-mm-yyyy-to-dd-mm-yyyy
+            Date dateObj = sourceFormat.parse(dateAsString);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM");
+            Log.d("MAIN", sdf.format(dateObj));
+            header.setText(namazStatus.getDay() +" - " + sdf.format(dateObj));
+
+        } catch (ParseException e) {
+            header.setText("<data not set>");
+            e.printStackTrace();
+        }
         //https://stackoverflow.com/questions/2562248/how-to-keep-onitemselected-from-firing-off-on-a-newly-instantiated-spinner
 
         int[] spinners = new int[] {

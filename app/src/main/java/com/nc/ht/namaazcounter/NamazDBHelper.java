@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -40,7 +39,8 @@ public class NamazDBHelper extends SQLiteOpenHelper {
 
     public NamazDBHelper(Context context) {
         super(context, DATABASE_NAME, null, SCHEMA_VERSION);
-        context.deleteDatabase(DATABASE_NAME);
+        // hack to recreate db always
+        // context.deleteDatabase(DATABASE_NAME);
     }
 
     public NamazDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version, DatabaseErrorHandler errorHandler) {
@@ -50,7 +50,7 @@ public class NamazDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE daily (_id INTEGER PRIMARY KEY " +
-                ",date TEXT" +
+                ",date INTEGER" +
                 ",day TEXT" +
                 ",fajr INTEGER" + // 0: Ada kiya, 1:qaza, 2:baki
                 ",zohar INTEGER" +
@@ -100,6 +100,9 @@ public class NamazDBHelper extends SQLiteOpenHelper {
         cv.put("isha", getNamazStatusInInt(obj.getIsha()));
         Log.d("DB", cv.toString());
         getWritableDatabase().insertWithOnConflict("daily", null, cv, SQLiteDatabase.CONFLICT_REPLACE);
+
+        Cursor out = getReadableDatabase().rawQuery("select * from daily", null);
+        Log.d("DB INSERT", "check just inserted count " + out.getCount());
     }
 
     private int getNamazStatusInInt(String s) {
@@ -125,6 +128,8 @@ public class NamazDBHelper extends SQLiteOpenHelper {
     }
 
     public SingleDayCount populateTodaysAndGetObject() {
+
+
         Date now = new Date();
         SimpleDateFormat date = new SimpleDateFormat("ddMMyyyy");
         SimpleDateFormat week = new SimpleDateFormat("E"); // abbreviated day of week
@@ -137,39 +142,32 @@ public class NamazDBHelper extends SQLiteOpenHelper {
         Cursor output = null;
         SingleDayCount namazStatus = new SingleDayCount();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor out2 = db.rawQuery("select * from daily where date = 6082017", null);
-        Log.d("DB", "out2.count " + out2.getCount());
+//        Cursor out2 = db.rawQuery("select * from daily where date = 6082017", null);
+//        Log.d("DB", "out2.count " + out2.getCount());
 
-        String sqlQry = SQLiteQueryBuilder.buildQueryString(false,"daily", null, "date="+ queryDate, null, null, null, null);
-        Log.i("DB", sqlQry);
-
-        String selectQuery = "SELECT  * FROM daily  WHERE _id ==  1";
-        Log.d("DBLOG", selectQuery);
-        Cursor c = db.rawQuery(selectQuery, null);
-        Log.d("DBLOG", "" + c.getCount());
+//        String sqlQry = SQLiteQueryBuilder.buildQueryString(false,"daily", null, "date="+ queryDate, null, null, null, null);
+//        Log.i("DB", sqlQry);
+//        String selectQuery = "SELECT  * FROM daily  WHERE _id ==  1";
+//        Log.d("DBLOG", selectQuery);
+//        Cursor c = db.rawQuery(selectQuery, null);
+//        Log.d("DBLOG", "" + c.getCount());
         try {
-//            output = getReadableDatabase().rawQuery("SELECT day, fajr, zohar, asr, magrib, isha " +
-//                    "FROM daily WHERE date=?", new String[]{String.valueOf(queryDate)});
+            output = db.rawQuery("SELECT fajr, zohar, asr, magrib, isha, date, day " +
+                    "FROM daily WHERE date=?", new String[]{String.valueOf(queryDate)});
 
-//            output = getReadableDatabase().rawQuery("SELECT day, fajr, zohar, asr, magrib, isha " +
-//                    "FROM daily WHERE date=6082017", null);
+            Log.d("DBHelper POPULATE_TODAY", "returned rows count " + output.getCount() + " for " + queryDate );
 
-            output = db.query("daily", null
-                    , "date = " + queryDate, null,  null, null, null);
-
-            Log.d("DBHelper POPULATE_TODAY", "returned rows count " + output.getCount() + " for " + queryDate + " " + output);
-//            Toast.makeText(context, "rows returned " + output.getCount(), Toast.LENGTH_LONG).show();
             if (output == null || output.getCount() <= 0) {
-
                 insertSingleDay(namazStatus);
             } else {
                 output.moveToFirst();
-                namazStatus.setDay(output.getString(0));
-                namazStatus.setFajr(getNamazStatusFromInt(output.getInt(1)));
-                namazStatus.setZohar(getNamazStatusFromInt(output.getInt(2)));
-                namazStatus.setAsr(getNamazStatusFromInt(output.getInt(3)));
-                namazStatus.setMagrib(getNamazStatusFromInt(output.getInt(4)));
-                namazStatus.setIsha(getNamazStatusFromInt(output.getInt(5)));
+                namazStatus.setFajr(getNamazStatusFromInt(output.getInt(0)));
+                namazStatus.setZohar(getNamazStatusFromInt(output.getInt(1)));
+                namazStatus.setAsr(getNamazStatusFromInt(output.getInt(2)));
+                namazStatus.setMagrib(getNamazStatusFromInt(output.getInt(3)));
+                namazStatus.setIsha(getNamazStatusFromInt(output.getInt(4)));
+                namazStatus.setDate(output.getInt(5));
+                namazStatus.setDay(output.getString(6));
             }
             Log.d("DBHelper POPULATE_TODAY", namazStatus.toString());
         } finally {
@@ -179,10 +177,9 @@ public class NamazDBHelper extends SQLiteOpenHelper {
     }
 
     public void updateToday(SingleDayCount namazStatus, String col, String updatedValue) {
-        Log.d("DBHelper UPDATE_TODAY", col +" updating.. to "+ updatedValue);
         ContentValues cv = new ContentValues();
         cv.put(col, getNamazStatusInInt(updatedValue));
         getWritableDatabase().update("daily", cv,  "date= ?", new String[] {String.valueOf(namazStatus.getDate())});
-        Log.d("DBHelper UPDATE_TODAY", "done");
+        Log.d("DBHelper UPDATE_TODAY", col +" updated to "+ updatedValue);
     }
 }

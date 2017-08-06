@@ -1,73 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:stretchColumns="1">
+    android:layout_marginBottom="12dp"
+    android:layout_marginTop="8dp"
+    android:orientation="vertical">
 
-
-    <TableRow>
-
-        <TextView android:text="Fajr" />
-
-        <Spinner
-            android:id="@+id/spinner_fajr"
-            android:entries="@array/namaz_states"
-            android:prompt="@string/namaz_prompt" />
-
-    </TableRow>
-
-    <TableRow>
-
-        <TextView android:text="Zohar" />
-
-        <Spinner
-            android:id="@+id/spinner_zohar"
-            android:entries="@array/namaz_states"
-            android:prompt="@string/namaz_prompt" />
-
-    </TableRow>
-
-
-    <TableRow>
-
-        <TextView android:text="Asr" />
-
-        <Spinner
-            android:id="@+id/spinner_asr"
-            android:entries="@array/namaz_states"
-            android:prompt="@string/namaz_prompt" />
-
-    </TableRow>
-
-    <TableRow>
-
-        <TextView android:text="Magrib" />
-
-        <Spinner
-            android:id="@+id/spinner_magrib"
-            android:entries="@array/namaz_states"
-            android:prompt="@string/namaz_prompt" />
-
-    </TableRow>
-
-    <TableRow>
-
-        <TextView android:text="Isha" />
-
-        <Spinner
-            android:id="@+id/spinner_isha"
-            android:entries="@array/namaz_states"
-            android:prompt="@string/namaz_prompt" />
-
-    </TableRow>
-
-
-    <!-- Button
-        android:id="@+id/save"
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/date_header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save" / -->
-</TableLayout>
+        android:layout_marginBottom="4dp"
+        android:padding="12dp"
+        android:paddingBottom="2dp"
+        android:text="Date"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="horizontal">
+
+        <!-- https://stackoverflow.com/questions/2698817/linear-layout-and-weight-in-android?rq=1 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="10"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/salahName"
+                android:text="Fajr" />
+
+            <TextView
+                style="@style/salahName"
+                android:text="Zohar" />
+
+            <TextView
+                style="@style/salahName"
+                android:text="Asr" />
+
+            <TextView
+                style="@style/salahName"
+                android:text="Magrib" />
+
+            <TextView
+                style="@style/salahName"
+                android:text="Isha" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="10"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spinner_fajr"
+                style="@style/salahSpinner"
+                android:spinnerMode="dialog" />
+
+            <Spinner
+                android:id="@+id/spinner_zohar"
+                style="@style/salahSpinner"
+                android:ellipsize="marquee"
+                />
+
+            <Spinner
+                android:id="@+id/spinner_asr"
+                style="@style/salahSpinner" />
+
+            <Spinner
+                android:id="@+id/spinner_magrib"
+                style="@style/salahSpinner" />
+
+            <Spinner
+                android:id="@+id/spinner_isha"
+                style="@style/salahSpinner" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
 
 
